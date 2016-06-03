@@ -22,6 +22,7 @@ func main() {
     redColor := color.New(color.FgRed)
 
     blueColor.Println(".o( R3d!nG CSV l!k3 a Pr0 )o.")
+	color.Unset();
 
     // make sure we have a file
     if len(fileName) < 1 {
@@ -32,6 +33,8 @@ func main() {
 
     // read the file already
     f, err := os.Open(fileName)
+	redColor.Println("Done: OPENING FILE")
+
 
     // REAAAADDDDD
     if err != nil {
@@ -41,13 +44,15 @@ func main() {
         r := csv.NewReader(f)
         defer f.Close()
         r.Comma = ';'
+		r.LazyQuotes = true
 
         records, err := r.ReadAll()
     	if err != nil {
     		log.Fatal(err)
     	}
+		redColor.Println("Done: READING")
 
-    	blueColor.Print(records)
+    	fmt.Println(records)
         os.Exit(0)
 
     }
